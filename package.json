@@ -19,6 +19,7 @@
   "homepage": "https://github.com/lumodon/simonsays#readme",
   "dependencies": {
     "express": "^4.14.0",
+    "express-normalized": "^1.0.0",
     "nodemon": "^1.11.0",
     "normalize": "^0.3.1",
     "pug": "^2.0.0-beta6"
