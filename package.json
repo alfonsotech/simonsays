@@ -5,7 +5,7 @@
   "main": "app.js ",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   "dependencies": {
     "express": "^4.14.0",
     "nodemon": "^1.11.0",
+    "normalize": "^0.3.1",
     "pug": "^2.0.0-beta6"
   },
   "devDependencies": {
