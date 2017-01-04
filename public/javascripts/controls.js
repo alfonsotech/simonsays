@@ -21,7 +21,7 @@ const resetVars = () => {
 }
 //main game loop
 while(gameRunning) {
-  playedNotes.push("cyan", "indigo")
+  playedNotes.push("cyan", "indigo", "orange", "cyan", "brown", "indigo", "orange", "indigo")
   timeOutLoop(playedNotes.length, playBack, 1000)
   //getInPut()
 
@@ -41,24 +41,16 @@ while(gameRunning) {
   //run playback function
   function timeOutLoop(reps, fn, delay) {
     if(reps > 0) {
-      let repetition = reps
-      console.log('repetition', repetition)
-      setTimeout((repetition) => {
-        console.log('2', repetition)
-        fn(repetition)
+      const timerId = setTimeout(() => {
+        fn(reps)
         timeOutLoop(reps - 1, fn, delay)
-        return null
-      }, delay)
+      }, 1000)
     }
   }
 
   function playBack(reps) {
-    soundsToNotes[playedNotes[reps]].play()
-
-
-    if(i < playedNotes.length) {
-      i++
-      setTimeout(playBack, 2000)
+    if(soundsToNotes[playedNotes[reps]]) {
+      soundsToNotes[playedNotes[reps]].play()
     }
 
   }
