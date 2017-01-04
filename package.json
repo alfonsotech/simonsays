@@ -1,0 +1,30 @@
+{
+  "name": "simonsays",
+  "version": "1.0.0",
+  "description": "Simon Says Game ",
+  "main": "app.js ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lumodon/simonsays.git"
+  },
+  "author": "Helen Yau",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lumodon/simonsays/issues"
+  },
+  "homepage": "https://github.com/lumodon/simonsays#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "express-normalized": "^1.0.0",
+    "nodemon": "^1.11.0",
+    "normalize": "^0.3.1",
+    "pug": "^2.0.0-beta6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

@@ -1,0 +1,64 @@
+.wrap, .interface {
+  width: 500px;
+  display: block;
+  margin: 0 auto;
+  padding-top: 5em;
+}
+#brown {
+  background-color: yellow;
+  border-top-left-radius: 100%;
+}
+
+#cyan {
+  background-color: cyan;
+    border-top-right-radius: 100%;
+}
+
+#indigo {
+  background-color: indigo;
+  border-bottom-left-radius: 100%;
+}
+
+#orange {
+  background-color: darkorange;
+    border-bottom-right-radius: 100%;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+
+}
+.item {
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+  min-height: 250px;
+  border: 1px solid black;
+}
+.counter-box {
+  background-color: black;
+  color: red;
+  border: 1px solid grey;
+  width: 75px;
+  height: 25px;
+  display: block;
+  margin: 0 auto;
+  font-size: 2em;
+  padding: 10px;
+  text-align: center;
+}
+.interface {
+  text-align: center;
+  padding-bottom: 5em;
+}
+.interface * {
+  padding: 15px;
+}
+#start {
+  background-color: red;
+  border-radius: 50%;
+}
+#strict {
+  background-color: yellow;
+  border-radius: 50%;
+}
