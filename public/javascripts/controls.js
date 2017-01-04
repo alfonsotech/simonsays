@@ -1,27 +1,83 @@
-'use strict'
-//array to hold played color-notes
-//array of set of color-notes
-
+  'use strict'
+  //array to hold played color-notes
+  const playedNotes = []
+  //array of set of color-notes
+  const notesToPlay = []
 //function to randomly select new color-note
-
+let counter = 0
+let gameRunning = true
 //start game function
+const startGame = () => {
+  if(gameRunning) {
+    resetVars() //reset all values and start game again
+  } else {
+    gameRunning = true
+  }
+}
   //reset game if already activated
   //activate loop
-
+const resetVars = () => {
+  //reset variables
+}
 //main game loop
+while(gameRunning) {
+  playedNotes.push("cyan", "indigo")
+  timeOutLoop(playedNotes.length, playBack, 1000)
+  //getInPut()
+
+  const soundsToNotes = {
+    brown: document.getElementById("simonSound1"),
+    cyan: document.getElementById("simonSound2"),
+    indigo: document.getElementById("simonSound3"),
+    orange: document.getElementById("simonSound4")
+  }
+
+  if(playedNotes.length === 20) {
+    gameRunning = false
+    resetVars()
+    console.log("You win!")
+  }
+
   //run playback function
+  function timeOutLoop(reps, fn, delay) {
+    if(reps > 0) {
+      let repetition = reps
+      console.log('repetition', repetition)
+      setTimeout((repetition) => {
+        console.log('2', repetition)
+        fn(repetition)
+        timeOutLoop(reps - 1, fn, delay)
+        return null
+      }, delay)
+    }
+  }
+
+  function playBack(reps) {
+    soundsToNotes[playedNotes[reps]].play()
+
+
+    if(i < playedNotes.length) {
+      i++
+      setTimeout(playBack, 2000)
+    }
+
+  }
+  playBack()
+  console.log("jkshdkjfh")
+  gameRunning = false
+
   //input function
   //check error or win condition
 
   //playback function
     //play sounds from array
-    //add new sound to array 
+    //add new sound to array
 
   //input function
     //loop while played array size is less than color-array size
     //get input clicks
       //push click to to played array
-
+}
 
   //play first sound
   //need to push to the array of played color-notes
