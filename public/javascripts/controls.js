@@ -21,9 +21,21 @@ const resetVars = () => {
 }
 //main game loop
 while(gameRunning) {
-  playedNotes.push("cyan", "indigo", "orange")
-  timeOutLoop(0, flashSounds, 1000)
   //getInPut()
+ function init() {
+   const randomNum = Math.floor((Math.random()*3) + 1)
+   const colorObj = {
+     1: 'orange',
+     2: 'cyan',
+     3: 'brown',
+     4: 'indigo'
+   }
+   notesToPlay.push(colorObj[randomNum])
+   console.log(notesToPlay)
+
+
+ }
+
 
   const soundsToNotes = {
     brown: document.getElementById("simonSound1"),
@@ -91,6 +103,8 @@ while(gameRunning) {
     //loop while played array size is less than color-array size
     //get input clicks
       //push click to to played array
+      init()
+      timeOutLoop(0, flashSounds, 1000)
       playerTurn()
 }
 
