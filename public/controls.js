@@ -28,9 +28,9 @@ function simonAddNote() {
   const randomNum = Math.floor((Math.random()*3) + 1)
   const colorObj = {
     1: 'orange',
-    2: 'cyan',
-    3: 'brown',
-    4: 'indigo'
+    2: 'turquoise',
+    3: 'lime',
+    4: 'purple'
   }
   simonNotes.push(colorObj[randomNum])
   console.log(simonNotes)
@@ -38,34 +38,37 @@ function simonAddNote() {
 
 function flashSounds(reps) {
   const soundsToNotes = {
-    brown: document.getElementById("simonSound1"),
-    cyan: document.getElementById("simonSound2"),
-    indigo: document.getElementById("simonSound3"),
+    lime: document.getElementById("simonSound1"),
+    turquoise: document.getElementById("simonSound2"),
+    purple: document.getElementById("simonSound3"),
     orange: document.getElementById("simonSound4")
   }
-  if(soundsToNotes[playerNotes[reps]]){
-    soundsToNotes[playerNotes[reps]].play()
-    $('#'+ [playerNotes[reps]]).effect('highlight', {}, 1000)
+  if(soundsToNotes[simonNotes[reps]]){
+    soundsToNotes[simonNotes[reps]].play()
+    $('#'+ [simonNotes[reps]]).effect('highlight', {}, 1000)
   }
 }
 
 function simonIsSaying(reps, fn, delay) {
-  if(reps < simonNotes.length) {
+  console.log("Simon is saying");
+  if(reps < simonNotes.length - 1) {
     // TODO: Delete const timerID
     const timerId = setTimeout(() => {
       fn(reps)
       simonIsSaying(reps + 1, fn, delay)
     }, 1000)
-  } else if (reps === simonNotes.length) {
+  } else if (reps === simonNotes.length -1) {
     const timerId = setTimeout(() => {
       fn(reps)
-      simonIsSaying(reps + 1, fn, delay)
       enableButtons()
     }, 1000)
   }
 }
 
 function playerTurn() {
+  console.log("current position", currentPosition)
+  console.log("simonnotes.length", simonNotes.length)
+  console.log("plyerNoeslength", playerNotes.length)
   if(playerNotes.length === 20) { // Win condition
     gameRunning = false
     resetVars()
@@ -75,23 +78,19 @@ function playerTurn() {
     alert("You loose 😹, press start to try again!");
     disableButtons()
   } else {
+    currentPosition += 1
     // Is player still punching in more notes for the sequence? or is player done with this sequence?
     // Time the player?
-    if( playerNotes.length === simonNotes.length ) { // Player is done, turn over game back to Simon
-      disableButtons()
-      simonAddNote()
-      simonIsSaying(0, flashSounds, 1000)
-    }
+      if( playerNotes.length === simonNotes.length ) { // Player is done, turn over game back to Simon
+        playerNotes.length = 0
+        currentPosition = 0
+        disableButtons()
+        simonAddNote()
+        setTimeout(function() {
+          simonIsSaying(0, flashSounds, 1000)
+        }, 2000)
+      }
     // Enable Error
-
-    // let stillCorrect = true
-    // playerNotes.forEach( (element, index) => {
-    //   if (element === simonNotes[index]) {
-    //
-    //   } else {
-    //     stillCorrect = false
-    //   }
-    // })
   }
 }
 
@@ -109,29 +108,29 @@ function enableButtons() {
     $('#orange').effect('highlight', {}, 250)
     playerTurn()
   })
-  $('#cyan').on('click', function() {
-    playerNotes.push("cyan")
+  $('#turquoise').on('click', function() {
+    playerNotes.push("turquoise")
     $('#simonSound2').get(0).play()
-    $('#cyan').effect('highlight', {}, 250)
+    $('#turquoise').effect('highlight', {}, 250)
     playerTurn()
   })
-  $('#brown').on('click', function() {
-    playerNotes.push("brown")
+  $('#lime').on('click', function() {
+    playerNotes.push("lime")
     $('#simonSound1').get(0).play()
-    $('#brown').effect('highlight', {}, 250)
+    $('#lime').effect('highlight', {}, 250)
     playerTurn()
   })
-  $('#indigo').on('click', function() {
-    playerNotes.push("indigo")
+  $('#purple').on('click', function() {
+    playerNotes.push("purple")
     $('#simonSound3').get(0).play()
-    $('#indigo').effect('highlight', {}, 250)
+    $('#purple').effect('highlight', {}, 250)
     playerTurn()
   })
 }
 
 function disableButtons() {
   $('#orange').off('click')
-  $('#cyan').off('click')
-  $('#brown').off('click')
-  $('#indigo').off('click')
+  $('#turquoise').off('click')
+  $('#lime').off('click')
+  $('#purple').off('click')
 }

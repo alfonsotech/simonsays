@@ -4,24 +4,24 @@
   margin: 0 auto;
   padding-top: 5em;
 }
-#brown {
-  background-color: yellow;
+#lime {
+  background-color: #80FF00;
   border-top-left-radius: 100%;
 }
 
-#cyan {
-  background-color: cyan;
+#turquoise {
+  background-color: #00FFFF;
     border-top-right-radius: 100%;
     border-bottom-left-radius: -100px;
 }
 
-#indigo {
-  background-color: indigo;
+#purple {
+  background-color: #8000FF;
   border-bottom-left-radius: 100%;
 }
 
 #orange {
-  background-color: darkorange;
+  background-color: #FF8000;
     border-bottom-right-radius: 100%;
 }
 .container {
