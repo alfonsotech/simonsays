@@ -1,140 +1,108 @@
-  'use strict'
-  //array to hold played color-notes
-  const playerNotes = []
-  //array of set of color-notes
-  const simonNotes = []
-//function to randomly select new color-note
+'use strict'
+const playerNotes = []
+const simonNotes = []
 let counter = 0
 let gameRunning = true
-//start game function
+let currentPosition = 0
+
 const startGame = () => {
   if(gameRunning) {
-    resetVars() //reset all values and start game again
+    resetVars()
   } else {
     gameRunning = true
   }
-}
-  //reset game if already activated
-  //activate loop
-const resetVars = () => {
-  //reset variables
-}
-//main game loop
-
-  playerSetup()
-
-  function init() {
-    const randomNum = Math.floor((Math.random()*3) + 1)
-    const colorObj = {
-      1: 'orange',
-      2: 'cyan',
-      3: 'brown',
-      4: 'indigo'
-    }
-    simonNotes.push(colorObj[randomNum])
-    console.log(simonNotes)
-  }
-
-  const soundsToNotes = {
-    brown: document.getElementById("simonSound1"),
-    cyan: document.getElementById("simonSound2"),
-    indigo: document.getElementById("simonSound3"),
-    orange: document.getElementById("simonSound4")
-  }
-
-
-
-  //run flashSounds function
-  function timeOutLoop(reps, fn, delay) {
-    if(reps <= playerNotes.length) {
-      const timerId = setTimeout(() => {
-        fn(reps)
-        timeOutLoop(reps + 1, fn, delay)
-      }, 1000)
-    }
-  }
-
-  function flashSounds(reps) {
-    if(soundsToNotes[playerNotes[reps]]){
-      soundsToNotes[playerNotes[reps]].play()
-      $('#'+ [playerNotes[reps]]).effect('highlight', {}, 1000)
-      //return soundsToNotes[playerNotes[reps]].play()
-    }
-  }
-  flashSounds()
-  gameRunning = false
-
-  //input function
-  function playerSetup() {
-    $('#orange').on('click', function() {
-      playerNotes.push("orange")
-      $('#simonSound4').get(0).play()
-      $('#orange').effect('highlight', {}, 250)
-    })
-    $('#cyan').on('click', function() {
-      playerNotes.push("cyan")
-      $('#simonSound2').get(0).play()
-      $('#cyan').effect('highlight', {}, 250)
-    })
-    $('#brown').on('click', function() {
-      playerNotes.push("brown")
-      $('#simonSound1').get(0).play()
-      $('#brown').effect('highlight', {}, 250)
-    })
-    $('#indigo').on('click', function() {
-      playerNotes.push("indigo")
-      $('#simonSound3').get(0).play()
-      $('#indigo').effect('highlight', {}, 250)
-    })
-  }
-
-function playerTurn() {
-  //if player successfully plays 20 rounds, player wins, game logic stops
-  if(playerNotes.length === 20) {
-    gameRunning = false
-    resetVars()
-    console.log("You win!")
-  } else if(playerNotes[currentPosition] !== simonNotes[currentPosition]) {
-    console.log("You loose 😹 ");
-  }
-  //if player makes an error, player looses, game logic stops
-
-
-  let stillCorrect = true
-  playerNotes.forEach( (element, index) => {
-    if (element === simonNotes[index]) {
-
-    } else {
-      stillCorrect = false
-    }
-  })
-}
-  //check error or win condition
-
-
-  //disable player buttons
-
-
-  //flashSounds function
-    //play sounds from array
-    //add new sound to array
-
-  //input function
-    //loop while played array size is less than color-array size
-    //get input clicks
-      //push click to to played array
-
-// TODO: Make these run after player's turn and once before any turn
-  init()
+  // TODO: Make these run after player's turn and once before any turn
+  simonAddNote()
   timeOutLoop(0, flashSounds, 1000)
   playerTurn()
+}
 
+const resetVars = () => {
+  // TODO: Test that this array actually empties (const)
+  playerNotes.length = 0
+  simonNotes.length = 0
+  counter = 0
+  currentPosition = 0
+}
 
-  //play first sound
-  //need to push to the array of played color-notes
-  //listens and checks to see if player gives the right input:
-    //if player makes correct input then we're going to randomly select a new note, play it, and add it to the played note array
-   //else give player error notice and replay sequence
-   //then listen for user input
+function simonAddNote() {
+  const randomNum = Math.floor((Math.random()*3) + 1)
+  const colorObj = {
+    1: 'orange',
+    2: 'cyan',
+    3: 'brown',
+    4: 'indigo'
+  }
+  simonNotes.push(colorObj[randomNum])
+  console.log(simonNotes)
+}
 
-//strict mode
+const soundsToNotes = {
+  brown: document.getElementById("simonSound1"),
+  cyan: document.getElementById("simonSound2"),
+  indigo: document.getElementById("simonSound3"),
+  orange: document.getElementById("simonSound4")
+}
+
+function flashSounds(reps) {
+  if(soundsToNotes[playerNotes[reps]]){
+    soundsToNotes[playerNotes[reps]].play()
+    $('#'+ [playerNotes[reps]]).effect('highlight', {}, 1000)
+  }
+}
+
+function timeOutLoop(reps, fn, delay) {
+  if(reps <= playerNotes.length) {
+    // TODO: Delete const timerID
+    const timerId = setTimeout(() => {
+      fn(reps)
+      timeOutLoop(reps + 1, fn, delay)
+    }, 1000)
+  }
+}
+
+function playerTurn() {
+  if(playerNotes.length === 20) { // Win condition
+    gameRunning = false
+    resetVars()
+    alert("You win! Press start to play again.")
+  } else if(playerNotes[currentPosition] !== simonNotes[currentPosition]) {
+    alert("You loose 😹, press start to try again!");
+  } else {
+    let stillCorrect = true
+    playerNotes.forEach( (element, index) => {
+      if (element === simonNotes[index]) {
+
+      } else {
+        stillCorrect = false
+      }
+    })
+  }
+}
+
+//disable player buttons
+$(document).ready(() => {
+  $('#orange').on('click', function() {
+    playerNotes.push("orange")
+    $('#simonSound4').get(0).play()
+    $('#orange').effect('highlight', {}, 250)
+  })
+  $('#cyan').on('click', function() {
+    playerNotes.push("cyan")
+    $('#simonSound2').get(0).play()
+    $('#cyan').effect('highlight', {}, 250)
+  })
+  $('#brown').on('click', function() {
+    playerNotes.push("brown")
+    $('#simonSound1').get(0).play()
+    $('#brown').effect('highlight', {}, 250)
+  })
+  $('#indigo').on('click', function() {
+    playerNotes.push("indigo")
+    $('#simonSound3').get(0).play()
+    $('#indigo').effect('highlight', {}, 250)
+  })
+  $('#start').on('click', () => {
+    startGame()
+  })
+})
