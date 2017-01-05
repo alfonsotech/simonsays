@@ -20,22 +20,20 @@ const resetVars = () => {
   //reset variables
 }
 //main game loop
-while(gameRunning) {
-  //getInPut()
- function init() {
-   const randomNum = Math.floor((Math.random()*3) + 1)
-   const colorObj = {
-     1: 'orange',
-     2: 'cyan',
-     3: 'brown',
-     4: 'indigo'
-   }
-   notesToPlay.push(colorObj[randomNum])
-   console.log(notesToPlay)
 
+  playerSetup()
 
- }
-
+  function init() {
+    const randomNum = Math.floor((Math.random()*3) + 1)
+    const colorObj = {
+      1: 'orange',
+      2: 'cyan',
+      3: 'brown',
+      4: 'indigo'
+    }
+    notesToPlay.push(colorObj[randomNum])
+    console.log(notesToPlay)
+  }
 
   const soundsToNotes = {
     brown: document.getElementById("simonSound1"),
@@ -71,27 +69,40 @@ while(gameRunning) {
   gameRunning = false
 
   //input function
-  function playerTurn() {
+  function playerSetup() {
     $('#orange').on('click', function() {
-      notesToPlay.push("orange")
+      playedNotes.push("orange")
       $('#simonSound4').get(0).play()
       $('#orange').effect('highlight', {}, 250)
     })
     $('#cyan').on('click', function() {
-      notesToPlay.push("cyan")
+      playedNotes.push("cyan")
       $('#simonSound2').get(0).play()
       $('#cyan').effect('highlight', {}, 250)
     })
     $('#brown').on('click', function() {
-      notesToPlay.push("brown")
+      playedNotes.push("brown")
       $('#simonSound1').get(0).play()
       $('#brown').effect('highlight', {}, 250)
     })
     $('#indigo').on('click', function() {
-      notesToPlay.push("indigo")
+      playedNotes.push("indigo")
       $('#simonSound3').get(0).play()
       $('#indigo').effect('highlight', {}, 250)
     })
+  }
+
+  function playerTurn() {
+    let stillCorrect = true
+    do {
+      playedNotes.forEach( (element, index) => {
+        if (element === notesToPlay[index]) {
+
+        } else {
+          stillCorrect = false
+        }
+      })
+    } while(stillCorrect)
   }
   //check error or win condition
 
@@ -103,9 +114,11 @@ while(gameRunning) {
     //loop while played array size is less than color-array size
     //get input clicks
       //push click to to played array
-      init()
-      timeOutLoop(0, flashSounds, 1000)
-      playerTurn()
+
+// TODO: Make these run after player's turn and once before any turn      
+  init()
+  timeOutLoop(0, flashSounds, 1000)
+  playerTurn()
 }
 
   //play first sound
