@@ -21,8 +21,8 @@ const resetVars = () => {
 }
 //main game loop
 while(gameRunning) {
-  playedNotes.push("cyan", "indigo", "orange", "cyan", "brown", "indigo", "orange", "indigo")
-  timeOutLoop(playedNotes.length, playBack, 1000)
+  playedNotes.push("cyan", "indigo", "orange")
+  timeOutLoop(0, flashSounds, 1000)
   //getInPut()
 
   const soundsToNotes = {
@@ -38,30 +38,52 @@ while(gameRunning) {
     console.log("You win!")
   }
 
-  //run playback function
+  //run flashSounds function
   function timeOutLoop(reps, fn, delay) {
-    if(reps > 0) {
+    if(reps <= playedNotes.length) {
       const timerId = setTimeout(() => {
         fn(reps)
-        timeOutLoop(reps - 1, fn, delay)
+        timeOutLoop(reps + 1, fn, delay)
       }, 1000)
     }
   }
 
-  function playBack(reps) {
-    if(soundsToNotes[playedNotes[reps]]) {
+  function flashSounds(reps) {
+    if(soundsToNotes[playedNotes[reps]]){
       soundsToNotes[playedNotes[reps]].play()
+      $('#'+ [playedNotes[reps]]).effect('highlight', {}, 1000)
+      //return soundsToNotes[playedNotes[reps]].play()
     }
-
   }
-  playBack()
-  console.log("jkshdkjfh")
+  flashSounds()
   gameRunning = false
 
   //input function
+  function playerTurn() {
+    $('#orange').on('click', function() {
+      notesToPlay.push("orange")
+      $('#simonSound4').get(0).play()
+      $('#orange').effect('highlight', {}, 250)
+    })
+    $('#cyan').on('click', function() {
+      notesToPlay.push("cyan")
+      $('#simonSound2').get(0).play()
+      $('#cyan').effect('highlight', {}, 250)
+    })
+    $('#brown').on('click', function() {
+      notesToPlay.push("brown")
+      $('#simonSound1').get(0).play()
+      $('#brown').effect('highlight', {}, 250)
+    })
+    $('#indigo').on('click', function() {
+      notesToPlay.push("indigo")
+      $('#simonSound3').get(0).play()
+      $('#indigo').effect('highlight', {}, 250)
+    })
+  }
   //check error or win condition
 
-  //playback function
+  //flashSounds function
     //play sounds from array
     //add new sound to array
 
@@ -69,6 +91,7 @@ while(gameRunning) {
     //loop while played array size is less than color-array size
     //get input clicks
       //push click to to played array
+      playerTurn()
 }
 
   //play first sound
