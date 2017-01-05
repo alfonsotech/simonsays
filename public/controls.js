@@ -1,8 +1,8 @@
   'use strict'
   //array to hold played color-notes
-  const playedNotes = []
+  const playerNotes = []
   //array of set of color-notes
-  const notesToPlay = []
+  const simonNotes = []
 //function to randomly select new color-note
 let counter = 0
 let gameRunning = true
@@ -31,8 +31,8 @@ const resetVars = () => {
       3: 'brown',
       4: 'indigo'
     }
-    notesToPlay.push(colorObj[randomNum])
-    console.log(notesToPlay)
+    simonNotes.push(colorObj[randomNum])
+    console.log(simonNotes)
   }
 
   const soundsToNotes = {
@@ -42,15 +42,11 @@ const resetVars = () => {
     orange: document.getElementById("simonSound4")
   }
 
-  if(playedNotes.length === 20) {
-    gameRunning = false
-    resetVars()
-    console.log("You win!")
-  }
+
 
   //run flashSounds function
   function timeOutLoop(reps, fn, delay) {
-    if(reps <= playedNotes.length) {
+    if(reps <= playerNotes.length) {
       const timerId = setTimeout(() => {
         fn(reps)
         timeOutLoop(reps + 1, fn, delay)
@@ -59,10 +55,10 @@ const resetVars = () => {
   }
 
   function flashSounds(reps) {
-    if(soundsToNotes[playedNotes[reps]]){
-      soundsToNotes[playedNotes[reps]].play()
-      $('#'+ [playedNotes[reps]]).effect('highlight', {}, 1000)
-      //return soundsToNotes[playedNotes[reps]].play()
+    if(soundsToNotes[playerNotes[reps]]){
+      soundsToNotes[playerNotes[reps]].play()
+      $('#'+ [playerNotes[reps]]).effect('highlight', {}, 1000)
+      //return soundsToNotes[playerNotes[reps]].play()
     }
   }
   flashSounds()
@@ -71,40 +67,53 @@ const resetVars = () => {
   //input function
   function playerSetup() {
     $('#orange').on('click', function() {
-      playedNotes.push("orange")
+      playerNotes.push("orange")
       $('#simonSound4').get(0).play()
       $('#orange').effect('highlight', {}, 250)
     })
     $('#cyan').on('click', function() {
-      playedNotes.push("cyan")
+      playerNotes.push("cyan")
       $('#simonSound2').get(0).play()
       $('#cyan').effect('highlight', {}, 250)
     })
     $('#brown').on('click', function() {
-      playedNotes.push("brown")
+      playerNotes.push("brown")
       $('#simonSound1').get(0).play()
       $('#brown').effect('highlight', {}, 250)
     })
     $('#indigo').on('click', function() {
-      playedNotes.push("indigo")
+      playerNotes.push("indigo")
       $('#simonSound3').get(0).play()
       $('#indigo').effect('highlight', {}, 250)
     })
   }
 
-  function playerTurn() {
-    let stillCorrect = true
-    do {
-      playedNotes.forEach( (element, index) => {
-        if (element === notesToPlay[index]) {
-
-        } else {
-          stillCorrect = false
-        }
-      })
-    } while(stillCorrect)
+function playerTurn() {
+  //if player successfully plays 20 rounds, player wins, game logic stops
+  if(playerNotes.length === 20) {
+    gameRunning = false
+    resetVars()
+    console.log("You win!")
+  } else if(playerNotes[currentPosition] !== simonNotes[currentPosition]) {
+    console.log("You loose 😹 ");
   }
+  //if player makes an error, player looses, game logic stops
+
+
+  let stillCorrect = true
+  playerNotes.forEach( (element, index) => {
+    if (element === simonNotes[index]) {
+
+    } else {
+      stillCorrect = false
+    }
+  })
+}
   //check error or win condition
+
+
+  //disable player buttons
+
 
   //flashSounds function
     //play sounds from array
@@ -115,11 +124,11 @@ const resetVars = () => {
     //get input clicks
       //push click to to played array
 
-// TODO: Make these run after player's turn and once before any turn      
+// TODO: Make these run after player's turn and once before any turn
   init()
   timeOutLoop(0, flashSounds, 1000)
   playerTurn()
-}
+
 
   //play first sound
   //need to push to the array of played color-notes

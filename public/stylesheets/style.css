@@ -12,6 +12,7 @@
 #cyan {
   background-color: cyan;
     border-top-right-radius: 100%;
+    border-bottom-left-radius: -100px;
 }
 
 #indigo {
