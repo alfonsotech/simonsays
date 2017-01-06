@@ -12,7 +12,7 @@ const startGame = () => {
   disableButtons()
   resetVars()
   simonAddNote()
-  simonIsSaying(0, flashSounds, 1000)
+  simonSays(0, flashSound)
   // TODO: Make these run after player's turn and once before any turn
 }
 
@@ -25,7 +25,7 @@ const resetVars = () => {
 }
 
 function simonAddNote() {
-  const randomNum = Math.floor((Math.random()*3) + 1)
+  const randomNum = Math.floor((Math.random()*4) + 1)
   const colorObj = {
     1: 'orange',
     2: 'turquoise',
@@ -36,30 +36,30 @@ function simonAddNote() {
   console.log(simonNotes)
 }
 
-function flashSounds(reps) {
-  const soundsToNotes = {
+function flashSound(iterator) {
+  const colorsToSounds = {
     lime: document.getElementById("simonSound1"),
     turquoise: document.getElementById("simonSound2"),
     purple: document.getElementById("simonSound3"),
     orange: document.getElementById("simonSound4")
   }
-  if(soundsToNotes[simonNotes[reps]]){
-    soundsToNotes[simonNotes[reps]].play()
-    $('#'+ [simonNotes[reps]]).effect('highlight', {}, 1000)
+  if(colorsToSounds[simonNotes[iterator]]){
+    colorsToSounds[simonNotes[iterator]].play()
+    $('#'+ [simonNotes[iterator]]).effect('highlight', {}, 1000)
   }
 }
 
-function simonIsSaying(reps, fn, delay) {
+function simonSays(iterator, callback) {
   console.log("Simon is saying");
-  if(reps < simonNotes.length - 1) {
+  if(iterator < simonNotes.length - 1) {
     // TODO: Delete const timerID
     const timerId = setTimeout(() => {
-      fn(reps)
-      simonIsSaying(reps + 1, fn, delay)
+      callback(iterator)
+      simonSays(iterator + 1, callback)
     }, 1000)
-  } else if (reps === simonNotes.length -1) {
+  } else if (iterator === simonNotes.length -1) {
     const timerId = setTimeout(() => {
-      fn(reps)
+      callback(iterator)
       enableButtons()
     }, 1000)
   }
@@ -87,8 +87,8 @@ function playerTurn() {
         disableButtons()
         simonAddNote()
         setTimeout(function() {
-          simonIsSaying(0, flashSounds, 1000)
-        }, 2000)
+          simonSays(0, flashSound)
+        }, 100)
       }
     // Enable Error
   }

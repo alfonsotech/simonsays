@@ -5,9 +5,9 @@ const passport = require('passport')
 const GitHubStrategy = require('passport-github').Strategy
 
 const User = {
-  findOrCreate: (info, cb) => {
+  findOrCreate: (info, callback) => {
     // info.githubId
-    cb(null, info)
+    callback(null, info)
   }
 }
 
@@ -18,9 +18,9 @@ passport.use(new GitHubStrategy({
     clientSecret: 'bb0cfa254c26b21a7df663c03a785f8ab47725fb',
     callbackURL: "http://127.0.0.1:3000/auth/github/callback"
   },
-  function(accessToken, refreshToken, profile, cb) {
+  function(accessToken, refreshToken, profile, callback) {
     User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      return cb(err, user)
+      return callback(err, user)
     })
   }
 ))
@@ -30,12 +30,12 @@ app.set('view engine', 'pug')
 app.set('views', __dirname + 'views')
 app.use(express.static('public'))
 
-passport.serializeUser(function(user, cb) {
-  cb(null, user);
+passport.serializeUser(function(user, callback) {
+  callback(null, user);
 })
 
-passport.deserializeUser(function(obj, cb) {
-  cb(null, obj);
+passport.deserializeUser(function(obj, callback) {
+  callback(null, obj);
 })
 
 // Routes
