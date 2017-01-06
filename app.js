@@ -59,16 +59,8 @@ app.get('/', function(request, response) {
   response.render(__dirname + '/views/login.pug', {failure: false})
 })
 
-app.get('/failure', function(request, response) {
-  response.render(__dirname + '/views/login.pug', {failure: true})
-})
-
 app.get('/game', function(request, response) {
   response.render(__dirname + '/views/index.pug')
-})
-
-app.get('/signup', function(request, response) {
-  response.render(__dirname + '/views/signup.pug')
 })
 
 app.listen(3000, function() {
