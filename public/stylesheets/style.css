@@ -36,7 +36,7 @@
   min-height: 250px;
   border: 1px solid black;
 }
-.counter-box {
+#counter-box {
   background-color: black;
   color: red;
   border: 1px solid grey;
