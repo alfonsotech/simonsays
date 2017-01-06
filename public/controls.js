@@ -1,9 +1,11 @@
 'use strict'
 const playerNotes = []
 const simonNotes = []
+let strictMode = false
 let counter = 0
 let gameRunning = true
 let currentPosition = 0
+let triesRemaining = 3
 
 const startGame = () => {
   if(!gameRunning) {
@@ -13,15 +15,15 @@ const startGame = () => {
   resetVars()
   simonAddNote()
   simonSays(0, flashSound)
-  // TODO: Make these run after player's turn and once before any turn
 }
 
 const resetVars = () => {
-  // TODO: Test that this array actually empties (const)
   playerNotes.length = 0
   simonNotes.length = 0
   counter = 0
   currentPosition = 0
+  triesRemaining = 3
+  document.getElementById('counter-box').innerHTML = Number('000')
 }
 
 function simonAddNote() {
@@ -34,6 +36,8 @@ function simonAddNote() {
   }
   simonNotes.push(colorObj[randomNum])
   console.log(simonNotes)
+  counter = simonNotes.length
+  document.getElementById('counter-box').innerHTML = counter
 }
 
 function flashSound(iterator) {
@@ -52,13 +56,12 @@ function flashSound(iterator) {
 function simonSays(iterator, callback) {
   console.log("Simon is saying");
   if(iterator < simonNotes.length - 1) {
-    // TODO: Delete const timerID
-    const timerId = setTimeout(() => {
+    setTimeout(() => {
       callback(iterator)
       simonSays(iterator + 1, callback)
     }, 1000)
   } else if (iterator === simonNotes.length -1) {
-    const timerId = setTimeout(() => {
+    setTimeout(() => {
       callback(iterator)
       enableButtons()
     }, 1000)
@@ -66,38 +69,52 @@ function simonSays(iterator, callback) {
 }
 
 function playerTurn() {
-  console.log("current position", currentPosition)
-  console.log("simonnotes.length", simonNotes.length)
-  console.log("plyerNoeslength", playerNotes.length)
+  let wrongNote = playerNotes[currentPosition] !== simonNotes[currentPosition]
   if(playerNotes.length === 20) { // Win condition
     gameRunning = false
     resetVars()
     alert("You win! Press start to play again.")
     disableButtons()
-  } else if(playerNotes[currentPosition] !== simonNotes[currentPosition]) { // Lose condition
-    alert("You loose 😹, press start to try again!");
-    disableButtons()
-  } else {
-    currentPosition += 1
-    // Is player still punching in more notes for the sequence? or is player done with this sequence?
-    // Time the player?
-      if( playerNotes.length === simonNotes.length ) { // Player is done, turn over game back to Simon
-        playerNotes.length = 0
-        currentPosition = 0
-        disableButtons()
-        simonAddNote()
-        setTimeout(function() {
-          simonSays(0, flashSound)
-        }, 100)
-      }
-    // Enable Error
-  }
+  } else if( wrongNote && (strictMode === false && triesRemaining > 0) ) {
+      const errorSoundShort = document.getElementById("errorSoundShort")
+      errorSoundShort.volume = 0.1;
+      errorSoundShort.play()
+      triesRemaining -= 1
+      //notify of error and that they have another chance
+      setTimeout( () => {
+        alert('You made a mistake 😹, you have ' + triesRemaining +  ' tries remaining. Listen closely and try again!');
+      }, 500)
+      playerNotes.length = 0
+      disableButtons()
+      simonSays(0, flashSound)
+    } else if(wrongNote && (strictMode === true || triesRemaining === 0)) { // Lose condition
+      const errorSound = document.getElementById("errorSound")
+      errorSound.volume = 0.1;
+      errorSound.play()
+      setTimeout( () => {
+        alert("You loose 😹, press start to try again!");
+      }, 2500)
+      disableButtons()
+    } else {
+      currentPosition += 1
+        if( playerNotes.length === simonNotes.length ) { // Player is done, turn over game back to Simon
+          playerNotes.length = 0
+          currentPosition = 0
+          disableButtons()
+          simonAddNote()
+          setTimeout(function() {
+            simonSays(0, flashSound)
+          }, 100)
+        }
+   }
 }
 
-//disable player buttons
 $(document).ready(() => {
   $('#start').on('click', () => {
     startGame()
+  })
+  $('#strict').on('click', () => {
+    strictMode = !strictMode
   })
 })
 
