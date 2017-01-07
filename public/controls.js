@@ -69,12 +69,23 @@ function simonSays(iterator, callback) {
 }
 
 function playerTurn() {
+  console.log(triesRemaining);
   let wrongNote = playerNotes[currentPosition] !== simonNotes[currentPosition]
   if(playerNotes.length === 20) { // Win condition
     gameRunning = false
     resetVars()
     alert("You win! Press start to play again.")
     disableButtons()
+  } else if(wrongNote && (strictMode === true || triesRemaining === 1)) { // Lose condition
+      const errorSound = document.getElementById("errorSound")
+      errorSound.volume = 0.1;
+      errorSound.play()
+      strictMode = false
+      $('#strict').css('background-color', 'yellow')
+      setTimeout( () => {
+        alert("You lose 😹, press start to try again!");
+      }, 2500)
+      disableButtons()
   } else if( wrongNote && (strictMode === false && triesRemaining > 0) ) {
       const errorSoundShort = document.getElementById("errorSoundShort")
       errorSoundShort.volume = 0.1;
@@ -87,15 +98,7 @@ function playerTurn() {
       playerNotes.length = 0
       disableButtons()
       simonSays(0, flashSound)
-    } else if(wrongNote && (strictMode === true || triesRemaining === 0)) { // Lose condition
-      const errorSound = document.getElementById("errorSound")
-      errorSound.volume = 0.1;
-      errorSound.play()
-      setTimeout( () => {
-        alert("You loose 😹, press start to try again!");
-      }, 2500)
-      disableButtons()
-    } else {
+  } else {
       currentPosition += 1
         if( playerNotes.length === simonNotes.length ) { // Player is done, turn over game back to Simon
           playerNotes.length = 0
@@ -114,7 +117,11 @@ $(document).ready(() => {
     startGame()
   })
   $('#strict').on('click', () => {
-    strictMode = !strictMode
+    if(strictMode = !strictMode) {
+      $('#strict').css('background-color', 'green')
+    } else {
+      $('#strict').css('background-color', 'yellow')
+    }
   })
 })
 
