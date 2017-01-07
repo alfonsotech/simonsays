@@ -2,6 +2,14 @@ doctype html
 html(lang='en')
   head
     title Login
+    link(rel='stylesheet', href='./stylesheets/meyers-reset.css')
+    link(rel='stylesheet', href='./stylesheets/style.css')
+
   body
-    p Please login with github to play Graceful-Pie's Simon Says game!
-    a(href='/auth/github') Log In
+    h1 Welcome to Graceful-Pie's Simon Says Game!
+    hr
+    h3 Press Start to begin. Follow the colors that Simon is playing for 20 rounds and you win!
+    h3 If select Strict mode you get only one chance to fuck up!! Otherwise you get three chances.
+    h3 Please login with github to play Graceful-Pie's Simon Says game!
+    div.login
+      a(href='/auth/github') Login
