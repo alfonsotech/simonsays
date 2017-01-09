@@ -54,7 +54,6 @@ function flashSound(iterator) {
 }
 
 function simonSays(iterator, callback) {
-  console.log("Simon is saying");
   if(iterator < simonNotes.length - 1) {
     setTimeout(() => {
       callback(iterator)
@@ -69,7 +68,6 @@ function simonSays(iterator, callback) {
 }
 
 function playerTurn() {
-  console.log(triesRemaining);
   let wrongNote = playerNotes[currentPosition] !== simonNotes[currentPosition]
   if(playerNotes.length === 20) { // Win condition
     gameRunning = false

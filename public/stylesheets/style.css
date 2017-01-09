@@ -126,10 +126,10 @@ button {
   width: 195px;
   height: 195px;
   border-radius: 100%;
-  position: absolute;
+  position: relative;
   background-color: white;
   top: 50%;
   bottom: 50%;
   border: 10px solid #1A1A1A;
-  margin: -12px 0 0 154px;
+  margin: -367px 0 0 151px;
 }
