@@ -7,20 +7,27 @@ html
 
   body
     div.wrap
+      h1 Graceful-Pie's Simon Says Game
+      hr
       div.container
         #lime.item
         #turquoise.item
       div.container
         #purple.item
         #orange.item
-      div.interface
-        p Start
-        button#start
-        p Strict Mode
-        button#strict
-        p Counter
-        p.counter-box 001
 
+
+      div.interface
+        button#start Start
+        button#strict Strict
+        div#counter
+          h2 Counter
+          p#counter-box 000
+
+    audio#errorSound
+      source(src="./sounds/errorSound.mp3" type="audio/mp3")
+    audio#errorSoundShort
+      source(src="./sounds/errorSoundShort.mp3" type="audio/mp3")
     audio#simonSound1
       source(src="./sounds/simonSound1.mp3" type="audio/mp3")
     audio#simonSound2

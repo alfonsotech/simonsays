@@ -1,4 +1,35 @@
-.wrap, .interface {
+h1 {
+  text-align: center;
+  font-size: 2em;
+  color: peach;
+}
+
+h2 {
+  font-size: 1em;
+  /*padding: px;*/
+}
+
+h3 {
+  text-align: center;
+  font-size: 1em;
+}
+
+a {
+  font-size: 3em;
+}
+
+.login {
+  display: block;
+  width: 100px;
+  margin: 0 auto;
+  padding-top: 100px;
+}
+
+hr {
+  margin-bottom: 40px;
+}
+
+.wrap {
   width: 500px;
   display: block;
   margin: 0 auto;
@@ -7,22 +38,34 @@
 #lime {
   background-color: #80FF00;
   border-top-left-radius: 100%;
+  border: 8px solid #1A1A1A;
+  border-right: 4px solid #1A1A1A;
+  border-bottom: 4px solid #1A1A1A;
 }
 
 #turquoise {
   background-color: #00FFFF;
-    border-top-right-radius: 100%;
-    border-bottom-left-radius: -100px;
+  border-top-right-radius: 100%;
+  border-bottom-left-radius: -100px;
+  border: 8px solid #1A1A1A;
+  border-left: 4px solid #1A1A1A;
+  border-bottom: 4px solid #1A1A1A;
 }
 
 #purple {
   background-color: #8000FF;
   border-bottom-left-radius: 100%;
+  border: 8px solid #1A1A1A;
+  border-right: 4px solid #1A1A1A;
+  border-top: 4px solid #1A1A1A;
 }
 
 #orange {
   background-color: #FF8000;
     border-bottom-right-radius: 100%;
+    border: 8px solid #1A1A1A;
+    border-left: 4px solid #1A1A1A;
+    border-top: 4px solid #1A1A1A;
 }
 .container {
   display: flex;
@@ -34,32 +77,59 @@
   flex-direction: column;
   min-width: 250px;
   min-height: 250px;
-  border: 1px solid black;
 }
-.counter-box {
+#counter-box {
   background-color: black;
   color: red;
   border: 1px solid grey;
-  width: 75px;
-  height: 25px;
+  width: 27px;
+  height: 14px;
   display: block;
   margin: 0 auto;
-  font-size: 2em;
-  padding: 10px;
+  font-size: 1em;
+  padding: 5px;
   text-align: center;
 }
 .interface {
   text-align: center;
-  padding-bottom: 5em;
 }
-.interface * {
-  padding: 15px;
+
+button {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  font-size: 1em;
+  text-align: center;
+  padding: 3px;
+  margin: 7px;
+  margin-top: 42px;
 }
+
+
 #start {
   background-color: red;
-  border-radius: 50%;
 }
 #strict {
   background-color: yellow;
-  border-radius: 50%;
+}
+
+#counter {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  width: 86px;
+  position: absolute;
+  margin: 8px 0 0 50px;
+  padding: 3px;
+  padding-bottom: 7px;
+}
+
+.interface {
+  width: 195px;
+  height: 195px;
+  border-radius: 100%;
+  position: relative;
+  background-color: white;
+  top: 50%;
+  bottom: 50%;
+  border: 10px solid #1A1A1A;
+  margin: -367px 0 0 151px;
 }
